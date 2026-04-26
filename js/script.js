@@ -1,49 +1,90 @@
-// ===== CERTIFICATE MODAL =====
-const modal = document.getElementById("certModal");
-const certImage = document.getElementById("certImage");
-const certFrame = document.getElementById("certFrame");
-const closeBtn = document.querySelector(".close");
+// =========================
+// CERTIFICATE MODAL SYSTEM
+// =========================
 
-document.querySelectorAll(".view-cert").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const src = btn.getAttribute("data-src");
+const modal = document.getElementById("certModal");
+const frame = document.getElementById("certFrame");
+const img = document.getElementById("certImage");
+const closeBtn = document.querySelector(".modal .close");
+
+// open modal safely
+document.querySelectorAll(".view-cert").forEach(button => {
+    button.addEventListener("click", () => {
+        const src = button.dataset.src;
+
+        if (!src || !modal) return;
+
+        // reset viewers
+        if (frame) {
+            frame.src = "";
+            frame.style.display = "none";
+        }
+        if (img) {
+            img.src = "";
+            img.style.display = "none";
+        }
+
+        // detect file type
+        const isPDF = src.toLowerCase().endsWith(".pdf");
+
+        if (isPDF && frame) {
+            frame.src = src;
+            frame.style.display = "block";
+        } else if (img) {
+            img.src = src;
+            img.style.display = "block";
+        }
 
         modal.style.display = "flex";
-
-        // RESET FIRST (important for clean switching)
-        certImage.src = "";
-        certFrame.src = "";
-
-        if (src.endsWith(".pdf")) {
-            certFrame.style.display = "block";
-            certImage.style.display = "none";
-            certFrame.src = src;
-        } else {
-            certImage.style.display = "block";
-            certFrame.style.display = "none";
-
-            // LOAD IMAGE NATURAL SIZE
-            certImage.onload = () => {
-                certImage.style.width = "auto";
-                certImage.style.height = "auto";
-            };
-
-            certImage.src = src;
-        }
     });
 });
 
-// CLOSE MODAL
+
+// close modal function (clean reusable)
 function closeModal() {
+    if (!modal) return;
+
     modal.style.display = "none";
-    certFrame.src = "";
-    certImage.src = "";
+
+    if (frame) frame.src = "";
+    if (img) img.src = "";
 }
 
-closeBtn.addEventListener("click", closeModal);
+// close button
+if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+}
 
+// click outside modal
 window.addEventListener("click", (e) => {
     if (e.target === modal) {
         closeModal();
     }
+});
+
+
+// =========================
+// SMOOTH SCROLL NAVIGATION
+// =========================
+
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+
+        // only handle internal links
+        if (targetId && targetId.startsWith('#')) {
+            e.preventDefault();
+
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+                const offsetTop = targetSection.offsetTop - 60; // adjust for navbar
+
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
 });
