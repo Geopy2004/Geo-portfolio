@@ -216,26 +216,64 @@
     </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="section">
     <h2 class="section-title">Contact</h2>
 
-    <form id="contactForm" action="https://formsubmit.co/algeofernan34@gmail.com" method="POST">
+    <div class="contact-container">
 
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <textarea name="message" placeholder="Message" required></textarea>
+        <!-- LEFT INFO -->
+        <div class="contact-info">
+            <h3>Let's Connect</h3>
+            <p>If you have a project, internship, or opportunity — feel free to message me.</p>
 
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="thankyou.html">
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>algeofernan34@gmail.com</span>
+            </div>
 
-        <button type="submit">Send</button>
+            <div class="contact-item">
+                <i class="fa-brands fa-facebook"></i>
+                <span>facebook.com/Geopy.69</span>
+            </div>
 
-        <p id="formStatus"></p>
+            <div class="contact-item">
+                <i class="fa-brands fa-github"></i>
+                <span>github.com/Geopy2004</span>
+            </div>
+        </div>
 
-    </form>
+        <!-- FORM -->
+        <form id="contactForm" class="contact-form"
+            action="https://formsubmit.co/algeofernan34@gmail.com"
+            method="POST">
+
+            <div class="input-group">
+                <input type="text" name="name" required>
+                <label>Name</label>
+            </div>
+
+            <div class="input-group">
+                <input type="email" name="email" required>
+                <label>Email</label>
+            </div>
+
+            <div class="input-group">
+                <textarea name="message" rows="5" required></textarea>
+                <label>Message</label>
+            </div>
+
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="thankyou.html">
+
+            <button type="submit" class="btn primary">
+                <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+
+            <p id="formStatus"></p>
+        </form>
+
+    </div>
 </section>
-
 </main>
 
 <!-- FOOTER -->

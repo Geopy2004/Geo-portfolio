@@ -88,3 +88,37 @@ document.querySelectorAll('.nav-link').forEach(link => {
         }
     });
 });
+
+
+//CONTACT
+const form = document.getElementById("contactForm");
+const status = document.getElementById("formStatus");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    status.textContent = "Sending message...";
+    status.style.color = "#9da7b3";
+
+    const data = new FormData(form);
+
+    fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+        if(response.ok){
+            status.textContent = "✅ Message sent successfully!";
+            status.style.color = "#2ea043";
+            form.reset();
+        } else {
+            status.textContent = "❌ Failed to send. Try again.";
+            status.style.color = "#f85149";
+        }
+    })
+    .catch(() => {
+        status.textContent = "⚠️ Network error. Please try later.";
+        status.style.color = "#f85149";
+    });
+});
